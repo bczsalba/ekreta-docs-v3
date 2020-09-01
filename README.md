@@ -341,7 +341,7 @@ All three are acquired the same way so I'll group them together.
 Each return an array with elements in the format shown here.
 
 ```python
-#endpoint: "Ertekelesek"/"Mulasztasok"/"OrarendElemek"
+# endpoint: "Ertekelesek"/"Mulasztasok"/"OrarendElemek"
 response = requests.get(
 		f"https://{ist}.ekreta.hu/ellenorzo/V3/Sajat/{endpoint}",
 		headers={
