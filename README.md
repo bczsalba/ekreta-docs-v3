@@ -122,7 +122,7 @@ response = requests.post(
 	}
 )
 ```
-## Getting all messages
+## Get all messages
 Requires a type to select endpoint, otherwise is the same as most requests.
 
 ```python
@@ -138,8 +138,8 @@ response = requests.get(
 ```json
 [
 	{
-		"azonosito":xxxxxxx,
-		"uzenetAzonosito":xxxxxx,
+		"azonosito": 0000000,
+		"uzenetAzonosito": 000000,
 		"uzenetKuldesDatum":"1970-01-01T00:00:00",
 		"uzenetFeladoNev":"Xxxxx Xxxxx",
 		"uzenetFeladoTitulus":"xxxxxxxxxx",
@@ -151,7 +151,7 @@ response = requests.get(
 ]
 ```
 
-## Getting information about a specific message
+## Get information about a specific message
 The above method is limited in message length (I think at 100 characters), so this gets more info about a specific message.
 
 ```python
@@ -164,6 +164,10 @@ response = requests.get(
 	}
 )
 ```
+
+### Important notes:
+- `cimzettLista` can have either a student or a class value (as far as I can tell).
+
 
 **Response from server:**
 
@@ -186,7 +190,7 @@ response = requests.get(
 		"feladoTitulus":"igazgató h.",
 		"szoveg":"...",
 		"targy":" Tájékoztató ",
-		"statusz" {
+		"statusz": {
 			"azonosito":2,
 			"kod":"KIKULDVE",
 			"rovidNev": "Kiküldve",
@@ -218,7 +222,8 @@ response = requests.get(
 					"nev":"Tanár",
 					"leiras":"Tanár"
 				}
-			}
+			},
+			...
 		],
 		"csatolmanyok": [
 			{
@@ -234,7 +239,7 @@ response = requests.get(
 ## Marking message as read
 *not sure yet*
 
-## Getting pre-announced tests & exams
+## Get pre-announced tests & exams
 
 ```python
 response = requests.get(
@@ -249,8 +254,8 @@ response = requests.get(
 )
 ```
 ### Important notes: 
-- datumTol is an optional parameter, without it the server returns all.
-- I only have `"irasbeli_temazaro_dolgozat"` as a type, but logically there should be stuff like `"szobeli_feleles"` and others.
+- `datumTol` is an optional parameter, without it the server returns all.
+- I only have `irasbeli_temazaro_dolgozat` as a type, but logically there should be stuff like `szobeli_feleles` and others.
 
 
 **Response from server:** 
@@ -354,7 +359,7 @@ response = requests.get(
 
 #### Response from server:
 - Evaluations:
-	```python
+	```json
 	[
 		{
 		    "ErtekeloTanarNeve": "Xxxxx Xxxxx",
@@ -459,6 +464,6 @@ response = requests.get(
 ## Everything else
 I've only listed and examplified what I think is probably the most used parts, or ones with peculiarities.
 
-Everything else listed in the classes (add hyperlink) that's not mentioned should follow the same header format as seen above (add hyperlink).
+Everything else listed in the [classes](#class-based-representation-of-all-kreta-endpoints] that's not mentioned should follow the same header format as seen [above](get-evaluations-absences--timetable].
 
-### Contributions welcome.
+### Contributions & Questions welcome.
