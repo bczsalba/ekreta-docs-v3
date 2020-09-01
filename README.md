@@ -464,6 +464,6 @@ response = requests.get(
 ## Everything else
 I've only listed and examplified what I think is probably the most used parts, or ones with peculiarities.
 
-Everything else listed in the [classes](#class-based-representation-of-all-kreta-endpoints) that's not mentioned should follow the same header format as seen [above](get-evaluations-absences--timetable).
+Everything else listed in the [classes](#class-based-representation-of-all-kreta-endpoints) that's not mentioned should follow the same header format as seen [above](#get-evaluations-absences--timetable).
 
 ### Contributions & Questions welcome.
