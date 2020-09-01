@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-import requests,json
+# Made in 202 by https://github.com/bczsalba
+# MIT License
+import requests
+
 
 class Kreta:
     def base(ist):
