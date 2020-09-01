@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Made in 202 by https://github.com/bczsalba
+# Made in 2020 by https://github.com/bczsalba
 # MIT License
 import requests
 
