@@ -1,7 +1,7 @@
 # ekreta-docs-v2
 Updated documentation for version 2 of the e-kreta API.
 
-Most of the info here is based on [Filc's](https://github.com/filcnaplo/filcnaplo) source code, and [boapps'](https://github.com/boapps/e-kreta-api-docs) v1 documentation, while the rest was hand tested.
+Most of the info here is based on [Filc's](https://github.com/filcnaplo/filcnaplo) source code and [boapps'](https://github.com/boapps/e-kreta-api-docs) v1 documentation, while the rest was hand tested.
 
 **Note:** All examples are written in Python3, and use the requests module. An example file with a User class is in the repo, so you can see everything working.
 
