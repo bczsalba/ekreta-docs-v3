@@ -105,7 +105,7 @@ response = requests.post(
 }
 ```
 
-With `grant_type=refresh_token` you can get refresh your access token:
+With `grant_type=refresh_token` you can refresh your access token:
 ```python
 # refresh access token
 response = requests.post(
@@ -123,7 +123,7 @@ response = requests.post(
 )
 ```
 ## Get all messages
-Requires a type to select endpoint, otherwise is the same as most requests.
+Requires an endpoint corresponding to the message type, otherwise is the same as most requests.
 
 ```python
 #type: beerkezett/elkuldott/torolt
@@ -152,7 +152,7 @@ response = requests.get(
 ```
 
 ## Get information about a specific message
-The above method is limited in message length (I think at 100 characters), so this gets more info about a specific message.
+The above method is limited in message length (I think 100 characters), so this gets more info about a specific message.
 
 ```python
 # id: numeric "azonosito" value of message
