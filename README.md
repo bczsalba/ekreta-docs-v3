@@ -1,3 +1,4 @@
+
 # ekreta-docs-v2
 Updated documentation for version 2 of the e-kreta API.
 
@@ -5,11 +6,37 @@ Most of the info here is based on [Filc's](https://github.com/filcnaplo/filcnapl
 
 **Note:** All examples are written in Python3, and use the requests module. An example file with a User class is in the repo, so you can see everything working.
 
+## Table of contents
+### 1. [Other projects](#other-kreta-projects-based-on-the-v2-api)
+### 2. [Endpoints & API links](#kreta-endpoints--api-links)
+ - [Endpoints](#class-based-representation-of-all-kreta-endpoints)
+ - [Getting API links](#getting-current-api-links)
+### 3. [Kreta schools](#getting-list-of-all-kreta-schools)
+### 4. [Requesting access & refresh tokens](#access--refresh-token)
+- [Access token (Bearer)](#access-token)
+- [Refresh token](#refresh-token)
+### 5. [Messages](#messages)
+- [Overview](#get-all-messages)
+- [Individual message info](#get-information-about-a-specific-message)
+- [Marking messages read](#marking-message-as-read)
+### 6. [Pre-announced tests & exams](#get-pre-announced-tests--exams)
+### 7. [Information about student](#get-information-about-student)
+### 8. [Student values](#get-evaluations-absences--timetable)
+- [Evaluations](#--evaluations)
+- [Absences](#--absences)
+- [Timetable](#--timetable)
+### 9. [Other](#everything-else)
+
 ## Other Kreta projects based on the v2 API
-- [Filc](https://filcnaplo.hu): *<description needed\>*
+- [Filc](https://filcnaplo.hu): An unnofficial e-diary application for the e-Kreta system.
+- [Asztal](https://github.com/bczsalba/asztal): Terminal-based e-Kreta client.
 
 To add your project to the list, create a pull request with it added.
-## Class-based representation of all Kreta Endpoints
+
+
+
+## Kreta Endpoints & API links
+### Class-based representation of all Kreta Endpoints
 *taken from Filc's source*
 ```python 
 class Kreta:
@@ -53,12 +80,7 @@ class AdminEndpoints:
     deleteMessage = "/api/v1/kommunikacio/postaladaelemek/torles"
 ```
 
-## Getting list of all Kreta schools
-May not work in languages with no lowercase header request, like Swift and Dart, see [BoA's note](https://github.com/boapps/e-kreta-api-docs#figyelem-ismert-probl%C3%A9m%C3%A1k-az-api-val).
-
-**<incomplete\>**
-
-## Getting API links
+### Getting current API links
 Useful so that if the api links change you don't have to update your app. 
 (*found by [thegergo02](https://github.com/thegergo02)*)
 
@@ -74,7 +96,14 @@ Useful so that if the api links change you don't have to update your app.
 
 Technically it is available from a [normal browser](http://kretamobile.blob.core.windows.net/configuration/ConfigurationDescriptor.json) as well.
 
-## Login & Getting access token
+## Getting list of all Kreta schools
+May not work in languages with no lowercase header request, like Swift and Dart, see [BoA's note](https://github.com/boapps/e-kreta-api-docs#figyelem-ismert-probl%C3%A9m%C3%A1k-az-api-val).
+
+**<incomplete\>**
+
+## Access & Refresh token
+
+### Access token
 Returns a Bearer authenticator to be used later for most requests. 
 
 **NOTE:** Sometimes it seems to return a 502 error, not sure why or if it's a problem I can fix.
@@ -105,6 +134,7 @@ response = requests.post(
 }
 ```
 
+### Refresh token
 With `grant_type=refresh_token` you can refresh your access token:
 ```python
 # refresh access token
@@ -122,7 +152,8 @@ response = requests.post(
 	}
 )
 ```
-## Get all messages
+## Messages
+### Get all messages
 Requires an endpoint corresponding to the message type, otherwise is the same as most requests.
 
 ```python
@@ -151,7 +182,7 @@ response = requests.get(
 ]
 ```
 
-## Get information about a specific message
+### Get information about a specific message
 The above method is limited in message length (I think 100 characters), so this gets more info about a specific message.
 
 ```python
@@ -236,7 +267,7 @@ response = requests.get(
 }
 ```
 
-## Marking message as read
+### Marking message as read
 *not sure yet*
 
 ## Get pre-announced tests & exams
@@ -357,109 +388,158 @@ response = requests.get(
 )
 ```
 
-#### Response from server:
-- Evaluations:
-	```json
-	[
-		{
-		    "ErtekeloTanarNeve": "Xxxxx Xxxxx",
-		    "ErtekFajta": {
-		      "Uid": "0,Osztalyzat",
-		      "Leiras": "Elégtelen (1) és Jeles (5) között az öt alapértelmezett érték",
-		      "Nev": "Osztalyzat"
-		    },
-		    "Jelleg": "Ertekeles",
-		    "KeszitesDatuma": "1970-01-01T00:00:00Z",
-		    "LattamozasDatuma": null,
-		    "Mod": {
-		      "Uid": "0000,type_of_eval",
-		      "Leiras": "Type of Eval",
-		      "Nev": "type_of_eval"
-		    },
-		    "RogzitesDatuma": "1970-01-01T00:00:00Z",
-		    "SulySzazalekErteke": 100,
-		    "SzamErtek": 0,
-		    "SzovegesErtek": "Szöveg(0)",
-		    "SzovegesErtekelesRovidNev": null,
-		    "Tantargy": {
-		      "Uid": "000000",
-		      "Kategoria": {
-		        "Uid": "0000,subject",
-		        "Leiras": "Subject",
-		        "Nev": "subject"
-		      },
-		      "Nev": "Subject"
-		    },
-		    "Tema": "...",
-		    "Tipus": {
-		      "Uid": "0000,evkozi_jegy_ertekeles",
-		      "Leiras": "Évközi jegy/értékelés",
-		      "Nev": "evkozi_jegy_ertekeles"
-		    },
-		    "OsztalyCsoport": {
-		      "Uid": "00000"
-		    },
-		    "Uid": "00000000,Ertekeles"
-		},
-		...
-	]
-	```
-	#### Important Notes:
-	- `type_of_eval` seems to have the same values possible as Pre-Announced
-	- `Leiras` looks to be the way to differentiate mid/half/endyear grades
-	- `SulySzazalekErteke` is usually 100/200, but I've seen end of term grades registered at 150 so it's better to code it flexibly.
-- Absences
-	```json
-	[
-		{
-		    "IgazolasAllapota": "Igazolt",
-		    "IgazolasTipusa": {
-		      "Uid": "0000,szuloi_igazolas",
-		      "Leiras": "Szülői igazolás",
-		      "Nev": "szuloi_igazolas"
-		    },
-		    "KesesPercben": null,
-		    "KeszitesDatuma": "1970-01-01T00:00:00Z",
-		    "Mod": {
-		      "Uid": "1,Tanorai",
-		      "Leiras": "Tanórai mulasztás",
-		      "Nev": "Tanorai"
-		    },
-		    "Datum": "1970-01-01T00:00:00Z",
-		    "Ora": {
-		      "KezdoDatum": "1970-01-01T08:30:00Z",
-		      "VegDatum": "2020-09-01T00:00:00Z",
-		      "Oraszam": 5
-		    },
-		    "RogzitoTanarNeve": "Xxxxx Xxxxx",
-		    "Tantargy": {
-		      "Uid": "000000",
-		      "Kategoria": {
-		        "Uid": "0000,subject_name",
-		        "Leiras": "Subject Name",
-		        "Nev": "subject_name"
-		      },
-		      "Nev": "subject name"
-		    },
-		    "Tipus": {
-		      "Uid": "0000,hianyzas",
-		      "Leiras": "Hiányzás",
-		      "Nev": "hianyzas"
-		    },
-		    "OsztalyCsoport": {
-		      "Uid": "00000"
-		    },
-		    "Uid": "00000000"
-		},
-		...
-	] 
-	```
-	#### Important notes:
-	- `Oraszam` refers to the index of the lesson starting from 1.
-	- `Leiras` again likely has a multitude of possible values that I cannot test.
-- Timetable
-	
-	>I don't have a timetable yet as of v2, will update as soon as I do.
+### Responses from server:
+### - Evaluations:
+```json
+[
+	{
+	    "ErtekeloTanarNeve": "Xxxxx Xxxxx",
+	    "ErtekFajta": {
+	      "Uid": "0,Osztalyzat",
+	      "Leiras": "Elégtelen (1) és Jeles (5) között az öt alapértelmezett érték",
+	      "Nev": "Osztalyzat"
+	    },
+	    "Jelleg": "Ertekeles",
+	    "KeszitesDatuma": "1970-01-01T00:00:00Z",
+	    "LattamozasDatuma": null,
+	    "Mod": {
+	      "Uid": "0000,type_of_eval",
+	      "Leiras": "Type of Eval",
+	      "Nev": "type_of_eval"
+	    },
+	    "RogzitesDatuma": "1970-01-01T00:00:00Z",
+	    "SulySzazalekErteke": 100,
+	    "SzamErtek": 0,
+	    "SzovegesErtek": "Szöveg(0)",
+	    "SzovegesErtekelesRovidNev": null,
+	    "Tantargy": {
+	      "Uid": "000000",
+	      "Kategoria": {
+	        "Uid": "0000,subject",
+	        "Leiras": "Subject",
+	        "Nev": "subject"
+	      },
+	      "Nev": "Subject"
+	    },
+	    "Tema": "...",
+	    "Tipus": {
+	      "Uid": "0000,evkozi_jegy_ertekeles",
+	      "Leiras": "Évközi jegy/értékelés",
+	      "Nev": "evkozi_jegy_ertekeles"
+	    },
+	    "OsztalyCsoport": {
+	      "Uid": "00000"
+	    },
+	    "Uid": "00000000,Ertekeles"
+	},
+	...
+]
+```
+#### Important Notes:
+- `type_of_eval` seems to have the same values possible as Pre-Announced
+- `Leiras` looks to be the way to differentiate mid/half/endyear grades
+- `SulySzazalekErteke` is usually 100/200, but I've seen end of term grades registered at 150 so it's better to code it flexibly.
+### - Absences
+```json
+[
+	{
+	    "IgazolasAllapota": "Igazolt",
+	    "IgazolasTipusa": {
+	      "Uid": "0000,szuloi_igazolas",
+	      "Leiras": "Szülői igazolás",
+	      "Nev": "szuloi_igazolas"
+	    },
+	    "KesesPercben": null,
+	    "KeszitesDatuma": "1970-01-01T00:00:00Z",
+	    "Mod": {
+	      "Uid": "1,Tanorai",
+	      "Leiras": "Tanórai mulasztás",
+	      "Nev": "Tanorai"
+	    },
+	    "Datum": "1970-01-01T00:00:00Z",
+	    "Ora": {
+	      "KezdoDatum": "1970-01-01T08:30:00Z",
+	      "VegDatum": "2020-09-01T00:00:00Z",
+	      "Oraszam": 5
+	    },
+	    "RogzitoTanarNeve": "Xxxxx Xxxxx",
+	    "Tantargy": {
+	      "Uid": "000000",
+	      "Kategoria": {
+	        "Uid": "0000,subject_name",
+	        "Leiras": "Subject Name",
+	        "Nev": "subject_name"
+	      },
+	      "Nev": "subject name"
+	    },
+	    "Tipus": {
+	      "Uid": "0000,hianyzas",
+	      "Leiras": "Hiányzás",
+	      "Nev": "hianyzas"
+	    },
+	    "OsztalyCsoport": {
+	      "Uid": "00000"
+	    },
+	    "Uid": "00000000"
+	},
+	...
+] 
+```
+#### Important notes:
+- `Oraszam` refers to the index of the lesson starting from 1.
+- `Leiras` again likely has a multitude of possible values that I cannot test.
+### - Timetable
+```json
+[
+  {
+    "Allapot": {
+      "Uid": "1,Naplozott",
+      "Leiras": "Naplózott",
+      "Nev": "Naplozott"
+    },
+    "BejelentettSzamonkeresUids": [],
+    "BejelentettSzamonkeresUid": null,
+    "Datum": "1970-01-01T00:00:00Z",
+    "HelyettesTanarNeve": null,
+    "IsTanuloHaziFeladatEnabled": false,
+    "KezdetIdopont": "1970-01-01T00:00:00Z",
+    "Nev": "xxxxxxx",
+    "Oraszam": 0,
+    "OraEvesSorszama": 0,
+    "OsztalyCsoport": {
+      "Uid": "000000",
+      "Nev": "xxx xxx xxx"
+    },
+    "HaziFeladatUid": null,
+    "IsHaziFeladatMegoldva": false,
+    "TanarNeve": "Xxxxx Xxxxxx",
+    "Tantargy": {
+      "Uid": "000000",
+      "Kategoria": {
+        "Uid": "0000,xxxx_xxxx",
+        "Leiras": "Xxxxx Xxxx",
+        "Nev": "xxxx_xxxx"
+      },
+      "Nev": "Spanish"
+    },
+    "TanuloJelenlet": {
+      "Uid": "0000,Xxxxx",
+      "Leiras": "...",
+      "Nev": "Xxxx"
+    },
+    "Tema": "...",
+    "TeremNeve": "xxx",
+    "Tipus": {
+      "Uid": "0,XxxxxXxxx",
+      "Leiras": "Xxxx Xxxx",
+      "Nev": "XxxxxXxxx"
+    },
+    "Uid": "0000000,Xxxxxxxx,1970-01-01T00:00:00Z",
+    "VegIdopont": "1970-01-01T00:15:00Z"
+  },
+  ...
+]
+```
 
 ## Everything else
 I've only listed and examplified what I think is probably the most used parts, or ones with peculiarities.
