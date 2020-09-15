@@ -30,7 +30,7 @@ The repository also contains Python program to access most functions, and as a s
 ## Other Kreta projects based on the v2 API
 - [Filc](https://filcnaplo.hu): An unnofficial e-diary application for the e-Kreta system.
 - [Asztal](https://github.com/bczsalba/asztal): Terminal-based e-Kreta client.
-
+- [kreta-cli](https://github.com/daaniiieel/kreta-cli): A command line interface for KRÉTA's latest v3 api
 To add your project to the list, create a pull request with it added.
 
 
