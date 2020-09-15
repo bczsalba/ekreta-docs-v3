@@ -112,7 +112,7 @@ Returns a Bearer authenticator to be used later for most requests.
 **NOTE:** Sometimes it seems to return a 502 error, not sure why or if it's a problem I can fix.
 
 ```bash
-curl -X POST -H "Content-Type": "application/x-www-form-urlencoded" -H "User-Agent": "hu.ekreta.student/1.0.5/Android/0/0" -d 'userName: xxxxxxxx&password: xxxxxxxx&institute_code: xxxxxxxxx&grant_type: password&client_id: kreta-ellenorzo-mobile' https://idp.e-kreta.hu/connect/token
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: hu.ekreta.student/1.0.5/Android/0/0" -d 'userName=xxxxxxxx&password=xxxxxxxxx&institute_code=xxxxxxxxx&grant_type=password&client_id=kreta-ellenorzo-mobile' https://idp.e-kreta.hu/connect/token
 ```
 
 **Response from server:** 
@@ -128,7 +128,7 @@ curl -X POST -H "Content-Type": "application/x-www-form-urlencoded" -H "User-Age
 With `grant_type=refresh_token` you can then refresh your access token:
 
 ```bash
-curl -X POST -H "Content-Type": "application/x-www-form-urlencoded" -H "User-Agent": "hu.ekreta.student/1.0.5/Android/0/0" -d 'userName: xxxxxxxx&password: xxxxxxxx&institute_code: xxxxxxxxx&grant_type: refresh_token&client_id: kreta-ellenorzo-mobile' https://idp.e-kreta.hu/connect/token
+curl -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: hu.ekreta.student/1.0.5/Android/0/0" -d "institute_code=xxxxxxxxx&refresh_token=xxxxxxxxxxxx&grant_type=refresh_token&client_id=kreta-ellenorzo-mobile" https://idp.e-kreta.hu/connect/token
 ```
 
 ## Messages
