@@ -1,30 +1,30 @@
-
 # ekreta-docs-v2
+
 Updated documentation for version 2 of the e-kreta API.
 
 Most of the info here is based on [Filc's](https://github.com/filcnaplo/filcnaplo) source code and [boapps'](https://github.com/boapps/e-kreta-api-docs) v1 documentation, while the rest was hand tested.
 
-**Note:** All examples are written in Python3, and use the requests module. An example file with a User class is in the repo, so you can see everything working.
+The repository also contains Python program to access most functions, and as a sort of example of usage.
 
 ## Table of contents
 ### 1. [Other projects](#other-kreta-projects-based-on-the-v2-api)
 ### 2. [Endpoints & API links](#kreta-endpoints--api-links)
- - [Endpoints](#class-based-representation-of-all-kreta-endpoints)
- - [Getting API links](#getting-current-api-links)
+ * [Endpoints](#class-based-representation-of-all-kreta-endpoints)
+ * [Getting API links](#getting-current-api-links)
 ### 3. [Kreta schools](#getting-list-of-all-kreta-schools)
 ### 4. [Requesting access & refresh tokens](#access--refresh-token)
-- [Access token (Bearer)](#access-token)
-- [Refresh token](#refresh-token)
+ * [Access token (Bearer)](#access-token)
+ * [Refresh token](#refresh-token)
 ### 5. [Messages](#messages)
-- [Overview](#get-all-messages)
-- [Individual message info](#get-information-about-a-specific-message)
-- [Marking messages read](#marking-message-as-read)
+ * [Overview](#get-all-messages)
+ * [Individual message info](#get-information-about-a-specific-message)
+ * [Marking messages read](#marking-message-as-read)
 ### 6. [Pre-announced tests & exams](#get-pre-announced-tests--exams)
 ### 7. [Information about student](#get-information-about-student)
 ### 8. [Student values](#get-evaluations-absences--timetable)
-- [Evaluations](#--evaluations)
-- [Absences](#--absences)
-- [Timetable](#--timetable)
+ * [Evaluations](#--evaluations)
+ * [Absences](#--absences)
+ * [Timetable](#--timetable)
 ### 9. [Other](#everything-else)
 
 ## Other Kreta projects based on the v2 API
@@ -38,6 +38,7 @@ To add your project to the list, create a pull request with it added.
 ## Kreta Endpoints & API links
 ### Class-based representation of all Kreta Endpoints
 *taken from Filc's source*
+
 ```python 
 class Kreta:
     def base(ist):
@@ -81,16 +82,18 @@ class AdminEndpoints:
 ```
 
 ### Getting current API links
+
 Useful so that if the api links change you don't have to update your app. 
+
 (*found by [thegergo02](https://github.com/thegergo02)*)
 
 **Response from server:**
 ```json
 {
-  "GlobalMobileApiUrlDEV": "https://kretaglobalmobileapiuat.ekreta.hu",
-  "GlobalMobileApiUrlTEST": "https://kretaglobalmobileapitest.ekreta.hu",
-  "GlobalMobileApiUrlUAT": "https://kretaglobalmobileapiuat.ekreta.hu",
-  "GlobalMobileApiUrlPROD": "https://kretaglobalmobileapi2.ekreta.hu"
+ "GlobalMobileApiUrlDEV": "https://kretaglobalmobileapiuat.ekreta.hu",
+ "GlobalMobileApiUrlTEST": "https://kretaglobalmobileapitest.ekreta.hu",
+ "GlobalMobileApiUrlUAT": "https://kretaglobalmobileapiuat.ekreta.hu",
+ "GlobalMobileApiUrlPROD": "https://kretaglobalmobileapi2.ekreta.hu"
 }
 ```
 
@@ -107,26 +110,13 @@ May not work in languages with no lowercase header request, like Swift and Dart,
 Returns a Bearer authenticator to be used later for most requests. 
 
 **NOTE:** Sometimes it seems to return a 502 error, not sure why or if it's a problem I can fix.
-```python
-# headers & data here are special to the token operations
-# get access token
-response = requests.post(
-	"https://idp.e-kreta.hu/connect/token",
-        headers={
-		"Content-Type": "application/x-www-form-urlencoded",
-		"User-Agent": "hu.ekreta.student/1.0.5/Android/0/0"
-	},
-        data={
-		"userName": "xxxxxxxxxx",
-		"password": "xxxxxxxxxx",
-	        "institute_code": "xxxxxxxxxx",
-	        "grant_type": "password",
-	        "client_id": "kreta-ellenorzo-mobile"
-	}
-)
+
+```bash
+curl -X POST -H "Content-Type": "application/x-www-form-urlencoded" -H "User-Agent": "hu.ekreta.student/1.0.5/Android/0/0" -d 'userName: xxxxxxxx&password: xxxxxxxx&institute_code: xxxxxxxxx&grant_type: password&client_id: kreta-ellenorzo-mobile' https://idp.e-kreta.hu/connect/token
 ```
-**Response from server:**
-```json
+
+**Response from server:** 
+```json 
 {
  "access_token":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
  "refresh_token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -135,36 +125,19 @@ response = requests.post(
 ```
 
 ### Refresh token
-With `grant_type=refresh_token` you can refresh your access token:
-```python
-# refresh access token
-response = requests.post(
-	"https://idp.e-kreta.hu/connect/token",
-        headers={
-		"Content-Type": "application/x-www-form-urlencoded",
-		"User-Agent": "hu.ekreta.student/1.0.5/Android/0/0"
-	},
-        data={
-	        "institute_code": "xxxxxxxxxx",
-	        "grant_type": "refresh_token",
-	        "refresh_token": "xxxxxxxxxxx",
-	        "client_id": "kreta-ellenorzo-mobile"
-	}
-)
+With `grant_type=refresh_token` you can then refresh your access token:
+
+```bash
+curl -X POST -H "Content-Type": "application/x-www-form-urlencoded" -H "User-Agent": "hu.ekreta.student/1.0.5/Android/0/0" -d 'userName: xxxxxxxx&password: xxxxxxxx&institute_code: xxxxxxxxx&grant_type: refresh_token&client_id: kreta-ellenorzo-mobile' https://idp.e-kreta.hu/connect/token
 ```
+
 ## Messages
 ### Get all messages
-Requires an endpoint corresponding to the message type, otherwise is the same as most requests.
-
-```python
-#type: beerkezett/elkuldott/torolt
-response = requests.get(
-		f"https://eugyintezes.e-kreta.hu/api/v1/kommunikacio/postaladaelemek/{type}",
-		headers={
-			"Authorization": "Bearer xxxxxxxxxx",
-			"User-Agent": "hu.ekreta.student/1.0.5/Android/0/0"
-		}
+Requires the same headers as all GET requests, but also needs an endpoint that can be `beerkezett`, `elkuldott` or `torolt`.
+```bash
+curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' https://eugyintezes.e-kreta.hu/api/v1/kommunkacio/postaladaelemek/$type
 ```
+
  **Response from server:**
 ```json
 [
@@ -183,22 +156,14 @@ response = requests.get(
 ```
 
 ### Get information about a specific message
-The above method is limited in message length (I think 100 characters), so this gets more info about a specific message.
+The above method is limited in message length (I think to 100 characters), so this gets more info about a specific messages denoted by it's numeric `id`.
 
-```python
-# id: numeric "azonosito" value of message
-response = requests.get(
-	"https://eugyintezes.e-kreta.hu/api/v1/kommunikacio/postaladaelemek/{id}",
-	headers={
-		"Authorization": "Bearer xxxxxxxxxx",
-		"User-Agent": "hu.ekreta.student/1.0.5/Android/0/0"
-	}
-)
+```bash
+curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' https://eugyintezes.e-kreta.hu/api/v1/kommunkacio/postaladaelemek/$ID
 ```
 
 ### Important notes:
 - `cimzettLista` can have either a student or a class value (as far as I can tell).
-
 
 **Response from server:**
 
@@ -271,19 +236,10 @@ response = requests.get(
 *not sure yet*
 
 ## Get pre-announced tests & exams
-
-```python
-response = requests.get(
-	f"{ist}.ekreta.hu/ellenorzo/V3/Sajat/BejelentettSzamonkeresek",
-	headers={
-		"Authorization": "Bearer xxxxxxxxxx",
-		"User-Agent": "hu.ekreta.student/1.0.5/Android/0/0"
-	},
-	params={
-		"datumTol": "1970-01-01T00:00:00"
-	}
-)
+```bash
+curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$ist"ekreta.hu.ellenorzo/V3/Sajat/BejelentettSzamonkeresek?datumTol=null"
 ```
+
 ### Important notes: 
 - `datumTol` is an optional parameter, without it the server returns all.
 - I only have `irasbeli_temazaro_dolgozat` as a type, but logically there should be stuff like `szobeli_feleles` and others.
@@ -309,23 +265,16 @@ response = requests.get(
     },
     "Uid": "784"
   },
-
+]
 ```
 
 ## Get information about student
 
-Used to be together with absences & evaluations, has since been separated with v2.
- 
-```python
-response = requests.get(
-        f"{ist}.ekreta.hu/ellenorzo/V3/Sajat/Adatlap",
-        headers = { 
-		"Authorization": "Bearer xxxxxxxxxx",
-		"User-Agent": "hu.ekreta.student/1.0.5/Android/0/0"
-	}
-)
-```
+Used to be together with absences & evaluations, but has it since been separated with v2.
 
+```bash
+curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$institute".ekreta.hu/ellenorzo/V3/Sajat/Adatlap"
+```
 
 ### Important notes:
 - `"SzuletesiDatum"` represents 00:00 of the given date, but is in UTC time: `YYYY-MM-(DD-1)T23:00:00Z`.
@@ -368,25 +317,14 @@ response = requests.get(
 ```
 
 ## Get Evaluations, Absences & Timetable
-All three are acquired the same way so I'll group them together.   
-Each return an array with elements in the format shown here.
+`$endpoint` refers to the data requested: `Ertekelesek`/`Mulasztasok`/`OrarendElemek`.
 
-```python
-# endpoint: "Ertekelesek"/"Mulasztasok"/"OrarendElemek"
-response = requests.get(
-		f"https://{ist}.ekreta.hu/ellenorzo/V3/Sajat/{endpoint}",
-		headers={
-		"Authorization": "Bearer xxxxxxxxxx",
-		"User-Agent": "hu.ekreta.student/1.0.5/Android/0/0"
-		}
-		
-		# obligatory for timetable, optional for others
-		params={
-			"fromDate": "2020-09-01T00-00-00",
-			"toDate": "2020-09-08T00-00-00"
-		}
-)
+`fromDate` & `toDate` is required for timetable, while optional for the other two.
+
+```bash
+curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$institute".ekreta.hu/ellenorzo/V3/Sajat/"$endpoint"?fromDate=2020-09-01T00-00-00&toDate=2020-09-08T00-00-00"
 ```
+
 
 ### Responses from server:
 ### - Evaluations:
