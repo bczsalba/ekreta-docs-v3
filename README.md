@@ -4,7 +4,7 @@ Updated documentation for version 2 of the e-kreta API.
 
 Most of the info here is based on [Filc's](https://github.com/filcnaplo/filcnaplo) source code and [boapps'](https://github.com/boapps/e-kreta-api-docs) v1 documentation, while the rest was hand tested.
 
-The repository also contains Python program to access most functions, and as a sort of example of usage.
+The repository also contains a Python program to access most functions, and as a sort of example of usage.
 
 ## Table of contents
 ### 1. [Other projects](#other-kreta-projects-based-on-the-v2-api)
@@ -31,6 +31,7 @@ The repository also contains Python program to access most functions, and as a s
 - [Filc](https://filcnaplo.hu): An unnofficial e-diary application for the e-Kreta system.
 - [Asztal](https://github.com/bczsalba/asztal): Terminal-based e-Kreta client.
 - [kreta-cli](https://github.com/daaniiieel/kreta-cli): A command line interface for KRÉTA's latest v3 api
+<!-- above this line ^-->
 To add your project to the list, create a pull request with it added.
 
 
