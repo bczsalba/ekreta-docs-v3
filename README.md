@@ -1,4 +1,4 @@
-# ekreta-docs-v2
+# ekreta-docs v2+
 
 Updated documentation for version 2+ of the e-kreta API.
 
