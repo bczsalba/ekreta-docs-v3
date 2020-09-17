@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Made in 2020 by https://github.com/bczsalba
 # MIT License
-import requests
+import requests,json
 
 
 class Kreta:
@@ -90,7 +90,7 @@ class User:
 
         try:
             return json.loads(response.text)["access_token"]
-        except json.decoder.JSONDecodeError:
+        except KeyError:
             # occasionally it gives a 502 error
             return response.text
 
@@ -153,7 +153,7 @@ class User:
         )
         return response.text
 
-    def getStudent(self):
+    def getInfo(self):
         # returns info about the student
         response = requests.get(
                 Kreta.base(self.ist)+KretaEndpoints.student,
@@ -162,4 +162,6 @@ class User:
         return response.text
 
 #--------------------------------------------------------------
-print(User('username','password','institute').getStudent())
+
+if __name__ == "__main__":
+    print(User('username','password','institute').getInfo())
