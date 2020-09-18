@@ -27,7 +27,7 @@ The repository also contains a Python program to access most functions, and as a
  * [Timetable](#--timetable)
 ### 9. [Other](#everything-else)
 
-## Other Kreta projects based on the v2 API
+## Other Kreta projects based on the new API
 - [Filc](https://filcnaplo.hu): An unnofficial e-diary application for the e-Kreta system.
 - [Asztal](https://github.com/bczsalba/asztal): Terminal-based e-Kreta client.
 - [kreta-cli](https://github.com/daaniiieel/kreta-cli): A command line interface for KRÉTA's latest v3 api
