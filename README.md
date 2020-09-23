@@ -107,6 +107,24 @@ May not work in languages with no lowercase header request, like Swift and Dart,
 curl -H "apiKey: 7856d350-1fda-45f5-822d-e1a2f3f1acf0"  https://kretaglobalmobileapi2.ekreta.hu:443/api/v2/Institute
 ```
 
+**Response from server**
+```bash
+[
+    {
+        "instituteId": 0000,
+        "instituteCode": "xxxxxxxxxxx",
+        "name": "Xxxxx Xxxx Xxxxxx",
+        "city": "Xxxxxx",
+        "url": "https://xxxxxxxxxxx.e-kreta.hu",
+        "advertisingUrl": "",
+        "informationImageUrl": "https://kretamobile.blob.core.windows.net/advertisement/nati_app.gif",
+        "informationUrl": "",
+        "featureToggleSet": {}
+    },
+    ...
+]
+```
+
 ## Access & Refresh token
 
 ### Access token
