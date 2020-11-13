@@ -340,10 +340,10 @@ curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5
 ## Get Evaluations, Absences & Timetable
 `$endpoint` refers to the data requested: `Ertekelesek`/`Mulasztasok`/`OrarendElemek`.
 
-`fromDate` & `toDate` is required for timetable, while optional for the other two.
+`datumTol` & `datumIg` is required for timetable, while optional for the other two.
 
 ```bash
-curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$institute".ekreta.hu/ellenorzo/V3/Sajat/"$endpoint"?fromDate=2020-09-01T00-00-00&toDate=2020-09-08T00-00-00"
+curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$institute".ekreta.hu/ellenorzo/V3/Sajat/"$endpoint"?datumTol=2020-09-01T00-00-00&datumIg=2020-09-08T00-00-00"
 ```
 
 
