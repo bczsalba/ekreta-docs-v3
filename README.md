@@ -31,6 +31,7 @@ The repository also contains a Python program to access most functions, and as a
 - [Filc](https://filcnaplo.hu): An unnofficial e-diary application for the e-Kreta system.
 - [Asztal](https://github.com/bczsalba/asztal): Terminal-based e-Kreta client.
 - [kreta-cli](https://github.com/daaniiieel/kreta-cli): A command line interface for KRÉTA's latest v3 api
+- [Táblafilc](http://tablafilc.samunemeth.hu): A grade calculator program for students ([GitHub](https://github.com/samunemeth/tablafilc)).
 <!-- above this line ^-->
 To add your project to the list, create a pull request with it added.
 
