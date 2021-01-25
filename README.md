@@ -6,6 +6,16 @@ Most of the info here is based on [Filc's](https://github.com/filcnaplo/filcnapl
 
 The repository also contains a Python program to access most functions, and as a sort of example of usage.
 
+
+## Kreta projects based on the new API
+- [Filc](https://filcnaplo.hu): An unnofficial e-diary application for the e-Kreta system.
+- [Asztal](https://github.com/bczsalba/asztal): Terminal-based e-Kreta client.
+- [kreta-cli](https://github.com/daaniiieel/kreta-cli): A command line interface for KRÉTA's latest v3 api
+- [Táblafilc](http://tablafilc.samunemeth.hu): A grade calculator program for students ([GitHub](https://github.com/samunemeth/tablafilc)).
+<!-- above this line ^-->
+To add your project to the list, create a pull request with it added.
+
+
 ## Table of contents
 ### 1. [Other projects](#other-kreta-projects-based-on-the-v2-api)
 ### 2. [Endpoints & API links](#kreta-endpoints--api-links)
@@ -26,14 +36,6 @@ The repository also contains a Python program to access most functions, and as a
  * [Absences](#--absences)
  * [Timetable](#--timetable)
 ### 9. [Other](#everything-else)
-
-## Other Kreta projects based on the new API
-- [Filc](https://filcnaplo.hu): An unnofficial e-diary application for the e-Kreta system.
-- [Asztal](https://github.com/bczsalba/asztal): Terminal-based e-Kreta client.
-- [kreta-cli](https://github.com/daaniiieel/kreta-cli): A command line interface for KRÉTA's latest v3 api
-- [Táblafilc](http://tablafilc.samunemeth.hu): A grade calculator program for students ([GitHub](https://github.com/samunemeth/tablafilc)).
-<!-- above this line ^-->
-To add your project to the list, create a pull request with it added.
 
 
 
