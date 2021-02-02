@@ -6,6 +6,9 @@ Most of the info here is based on [Filc's](https://github.com/filcnaplo/filcnapl
 
 The repository also contains a Python program to access most functions, and as a sort of example of usage.
 
+## General Disclaimer
+It seems that not all schools use the `ekreta.hu` API link. If you get an `HTTP 301 - Moved Permanently` response, try changing your domain to `e-kreta.hu` instead. ([#1](https://github.com/bczsalba/ekreta-docs-v3/issues/1))
+
 
 ## Kreta projects based on the new API
 - [Filc](https://filcnaplo.hu): An unnofficial e-diary application for the e-Kreta system.
