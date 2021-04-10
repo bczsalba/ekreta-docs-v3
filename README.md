@@ -340,7 +340,7 @@ curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5
     "BankszamlaTulajdonosTipusId": null,
     "BankszamlaTulajdonosNeve": null,
     "IsReadOnly": false
-  }
+  },
   "Intezmeny": {
     "Uid": "0000",
     "RovidNev": "xxxxxxxxxx",
