@@ -315,15 +315,32 @@ curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5
     "City (Postcode), Street Number",
     "Xxxx (0000), Xxxxxx street 0"
   ],
-  "Gondviselok": [],
+  "Gondviselok": [
+    {
+      "EmailCim": "xxxxxxxxx@xxxxx.com",
+      "Nev": "Xxxxxxx Xxxxxx",
+      "Telefonszam": "+xxxxxxxxxxx",
+      "IsTorvenyesKepviselo": true,
+      "Uid": "xxxxx"
+    }
+  ],
   "IntezmenyAzonosito": "xxxxxxxxxx",
   "IntezmenyNev": "Xxxxxxxxxx Xxxxxxxxx",
   "Nev": "Xxxxx Xxxxx Xxxxx",
   "SzuletesiDatum": "2002-12-02T23:00:00Z",
+  "SzuletesiEv": 2002,
+  "SzuletesiHonap": 12,
+  "SzuletesiNap": 02,
   "SzuletesiHely": "Xxxxxxx XX Xxxxx",
   "SzuletesiNev": "Xxxxx Xxxxx Xxxxx",
   "TanevUid": "0000",
   "Uid": "000000",
+  "Bankszamla": {
+    "BankszamlaSzam": null,
+    "BankszamlaTulajdonosTipusId": null,
+    "BankszamlaTulajdonosNeve": null,
+    "IsReadOnly": false
+  },
   "Intezmeny": {
     "Uid": "0000",
     "RovidNev": "xxxxxxxxxx",
@@ -337,7 +354,8 @@ curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5
       "IsDiakRogzithetHaziFeladatot": false,
       "IsTanorakTemajaMegtekinthetoEllenorzoben": true,
       "IsOsztalyAtlagMegjeleniteseEllenorzoben": false,
-      "ErtekelesekMegjelenitesenekKesleltetesenekMerteke": 0
+      "ErtekelesekMegjelenitesenekKesleltetesenekMerteke": 0,
+      "KovetkezoTelepitesDatuma": "2021-05-04T19:00:00Z"
     }
   }
 }
