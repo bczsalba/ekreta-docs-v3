@@ -1,5 +1,7 @@
 # ekreta-docs v3
 
+### Notice: I no longer have access to a Kreta account. As such, I am looking for a maintainer to take over this project and allow it to remain up to date. <a href="mailto:bczsalba@gmail.com">Email me</a> for details!
+
 Updated documentation for version 3 of the e-kreta API.
 
 Most of the info here is based on [Filc's](https://github.com/filcnaplo/filcnaplo) source code and [boapps'](https://github.com/boapps/e-kreta-api-docs) v1 documentation, while the rest was hand tested.
