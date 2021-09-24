@@ -140,6 +140,7 @@ curl -H "apiKey: 7856d350-1fda-45f5-822d-e1a2f3f1acf0"  https://kretaglobalmobil
 Returns a Bearer authenticator to be used later for most requests. 
 
 **NOTE:** Sometimes it seems to return a 502 error, not sure why or if it's a problem I can fix.
+
 **NOTE:** To simplify the `X-AuthorizationPolicy-Key` and `X-AuthorizationPolicy-Nonce` header information, please refer to the `kreta_v2.py` file.
 
 ```bash
