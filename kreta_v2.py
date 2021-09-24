@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Made in 2020 by https://github.com/bczsalba
 # MIT License
-import requests,json
+import requests,json,hmac,base64,hashlib,datetime
 
 
 class Kreta:
@@ -13,6 +13,7 @@ class Kreta:
 
 class KretaEndpoints:
     token = "/connect/token"
+    nonce = "/nonce"
     notes = "/ellenorzo/V3/Sajat/Feljegyzesek"
     events = "/ellenorzo/V3/Sajat/FaliujsagElemek"
     student = "/ellenorzo/V3/Sajat/TanuloAdatlap"
@@ -32,7 +33,7 @@ class AdminEndpoints:
         return f"/api/v1/kommunikacio/postaladaelemek/{endpoint}"
     def getMessage(id):
         return f"/api/v1/kommunikacio/postaladaelemek/{id}"
-   
+
     recipientCategories = "/api/v1/adatszotarak/cimzetttipusok"
     availableCategories = "/api/v1/kommunikacio/cimezhetotipusok"
     recipientsTeacher = "/api/v1/kreta/alkalmazottak/tanar"
@@ -59,25 +60,31 @@ class User:
         
         # headers used for operation other than token
         self.headers = {
-          "Authorization": f"Bearer {self.bearer}",
-          "User-Agent": self.userAgent
+            "Authorization": f"Bearer {self.bearer}",
+            "User-Agent": self.userAgent
         }
 
     def getToken(self):
         # gets access token
         # headers: special to token
-        headers = {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "User-Agent": self.userAgent
-        }
+        key = bytes([53, 75, 109, 112, 109, 103, 100, 53, 102, 74])
+        nonce = (requests.get(Kreta.IDP+KretaEndpoints.nonce)).text
+        message = bytes(self.usr.lower()+self.ist.lower()+nonce, 'utf-8')
+        dig = hmac.HMAC(key, message, hashlib.sha512).digest()
+        generated = base64.b64encode(dig).decode()
+        headers = {"Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+            "User-Agent": "hu.ekreta.student/1.0.5/Android/0/0", 
+            "X-AuthorizationPolicy-Key" : generated, 
+            "X-AuthorizationPolicy-Version" : "v1", 
+            "X-AuthorizationPolicy-Nonce" : nonce}
 
         # data to send
         data = {
-          "userName": self.usr,
-          "password": self.pwd,
-          "institute_code": self.ist,
-          "grant_type": "password",
-          "client_id": self.clientID
+            "userName": self.usr,
+            "password": self.pwd,
+            "institute_code": self.ist,
+            "grant_type": "password",
+            "client_id": self.clientID
         }
         
         # url: https://idp.e-kreta.hu/connect/token
@@ -101,7 +108,8 @@ class User:
                 Kreta.base(self.ist)+KretaEndpoints.evaluations,
                 headers=self.headers
         )
-        return response.text
+        evaluations = sorted(response.json(), key=lambda x: datetime.datetime.strptime(x['KeszitesDatuma'], '%Y-%m-%dT%H:%M:%SZ'), reverse=True)
+        return evaluations
     
     def getAbsences(self):
         # url: https://{ist}.ekreta.hu/ellenorzo/V3/Sajat/Mulasztasok
@@ -147,7 +155,7 @@ class User:
         # returns announced tests/exams
         params = ( {"datumTol": date } if date else None)
         response = requests.get(
-	        Kreta.base(self.ist)+KretaEndpoints.announcedTests,
+        Kreta.base(self.ist)+KretaEndpoints.announcedTests,
                 headers = self.headers,
                 params = params
         )

@@ -58,6 +58,7 @@ class Kreta:
 
 class KretaEndpoints:
     token = "/connect/token"
+    nonce = "/nonce"
     notes = "/ellenorzo/V3/Sajat/Feljegyzesek"
     events = "/ellenorzo/V3/Sajat/FaliujsagElemek"
     student = "/ellenorzo/V3/Sajat/TanuloAdatlap"
@@ -140,8 +141,10 @@ Returns a Bearer authenticator to be used later for most requests.
 
 **NOTE:** Sometimes it seems to return a 502 error, not sure why or if it's a problem I can fix.
 
+**NOTE:** To simplify the `X-AuthorizationPolicy-Key` and `X-AuthorizationPolicy-Nonce` header information, please refer to the `kreta_v2.py` file.
+
 ```bash
-curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: hu.ekreta.student/1.0.5/Android/0/0" -d 'userName=xxxxxxxx&password=xxxxxxxxx&institute_code=xxxxxxxxx&grant_type=password&client_id=kreta-ellenorzo-mobile' https://idp.e-kreta.hu/connect/token
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: hu.ekreta.student/1.0.5/Android/0/0" -H "X-AuthorizationPolicy-Key: xxx" -H "X-AuthorizationPolicy-Version: v1" -H "X-AuthorizationPolicy-Nonce: xxx" -d 'userName=xxxxxxxx&password=xxxxxxxxx&institute_code=xxxxxxxxx&grant_type=password&client_id=kreta-ellenorzo-mobile' https://idp.e-kreta.hu/connect/token
 ```
 
 **Response from server:** 
