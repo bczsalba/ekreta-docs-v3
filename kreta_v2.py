@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Made in 2020 by https://github.com/bczsalba
 # MIT License
-import requests,json,hmac,base64,hashlib
+import requests,json,hmac,base64,hashlib,datetime
 
 
 class Kreta:
@@ -108,7 +108,8 @@ class User:
                 Kreta.base(self.ist)+KretaEndpoints.evaluations,
                 headers=self.headers
         )
-        return response.text
+        evaluations = sorted(response.json(), key=lambda x: datetime.datetime.strptime(x['KeszitesDatuma'], '%Y-%m-%dT%H:%M:%SZ'), reverse=True)
+        return evaluations
     
     def getAbsences(self):
         # url: https://{ist}.ekreta.hu/ellenorzo/V3/Sajat/Mulasztasok
