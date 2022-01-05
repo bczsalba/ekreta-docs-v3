@@ -161,6 +161,16 @@ class User:
         )
         return response.text
 
+    def getNotes(self,date=None):
+        # returns announced tests/exams
+        params = ( {"datumTol": date } if date else None)
+        response = requests.get(
+        Kreta.base(self.ist)+KretaEndpoints.notes,
+                headers = self.headers,
+                params = params
+        )
+        return response.text
+
     def getInfo(self):
         # returns info about the student
         response = requests.get(
