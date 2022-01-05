@@ -113,7 +113,7 @@ Technically it is available from a [normal browser](http://kretamobile.blob.core
 May not work in languages with no lowercase header request, like Swift and Dart, see [BoA's note](https://github.com/boapps/e-kreta-api-docs#figyelem-ismert-probl%C3%A9m%C3%A1k-az-api-val).
 
 ```bash
-curl -H "apiKey: 7856d350-1fda-45f5-822d-e1a2f3f1acf0"  https://kretaglobalmobileapi2.ekreta.hu:443/api/v2/Institute
+curl -H "apiKey: 7856d350-1fda-45f5-822d-e1a2f3f1acf0"  https://kretaglobalmobileapi2.ekreta.hu:443/api/v3/Institute
 ```
 
 **Response from server**
