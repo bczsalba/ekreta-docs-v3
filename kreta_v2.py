@@ -54,7 +54,7 @@ class User:
         
         # userAgent and clientID
         self.userAgent = "hu.ekreta.student/1.0.5/Android/0/0"
-        self.clientID = "kreta-ellenorzo-mobile"
+        self.clientID = "kreta-ellenorzo-mobile-android"
 
         self.bearer = self.getToken()
         
@@ -67,15 +67,15 @@ class User:
     def getToken(self):
         # gets access token
         # headers: special to token
-        key = bytes([53, 75, 109, 112, 109, 103, 100, 53, 102, 74])
+        key = bytes([98, 97, 83, 115, 120, 79, 119, 108, 85, 49, 106, 77])
         nonce = (requests.get(Kreta.IDP+KretaEndpoints.nonce)).text
-        message = bytes(self.usr.lower()+self.ist.lower()+nonce, 'utf-8')
+        message = bytes(self.ist.upper()+nonce+self.usr.upper(), 'utf-8')
         dig = hmac.HMAC(key, message, hashlib.sha512).digest()
         generated = base64.b64encode(dig).decode()
         headers = {"Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
             "User-Agent": "hu.ekreta.student/1.0.5/Android/0/0", 
             "X-AuthorizationPolicy-Key" : generated, 
-            "X-AuthorizationPolicy-Version" : "v1", 
+            "X-AuthorizationPolicy-Version" : "v2", 
             "X-AuthorizationPolicy-Nonce" : nonce}
 
         # data to send
