@@ -269,7 +269,7 @@ curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5
 
 ## Get pre-announced tests & exams
 ```bash
-curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$ist"ekreta.hu.ellenorzo/V3/Sajat/BejelentettSzamonkeresek?datumTol=null"
+curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$ist".e-kreta.hu/ellenorzo/V3/Sajat/BejelentettSzamonkeresek?datumTol=null"
 ```
 
 ### Important notes: 
