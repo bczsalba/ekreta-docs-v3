@@ -167,7 +167,7 @@ curl -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: hu.ekr
 ### Get all messages
 Requires the same headers as all GET requests, but also needs an endpoint that can be `beerkezett`, `elkuldott` or `torolt`.
 ```bash
-curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' https://eugyintezes.e-kreta.hu/api/v1/kommunkacio/postaladaelemek/$type
+curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' https://eugyintezes.e-kreta.hu/api/v1/kommunikacio/postaladaelemek/$type
 ```
 
  **Response from server:**
