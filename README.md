@@ -8,10 +8,6 @@ Most of the info here is based on [Filc's](https://github.com/filcnaplo/filcnapl
 
 The repository also contains a Python program to access most functions, and as a sort of example of usage.
 
-## General Disclaimer
-It seems that not all schools use the `ekreta.hu` API link. If you get an `HTTP 301 - Moved Permanently` response, try changing your domain to `e-kreta.hu` instead. ([#4](https://github.com/bczsalba/ekreta-docs-v3/issues/4))
-
-
 ## Kreta projects based on the new API
 - [Filc](https://filcnaplo.hu): An unnofficial e-diary application for the e-Kreta system.
 - [Asztal](https://github.com/bczsalba/asztal): Terminal-based e-Kreta client.
@@ -51,7 +47,7 @@ To add your project to the list, create a pull request with it added.
 ```python 
 class Kreta:
     def base(ist):
-        return f"https://{ist}.ekreta.hu"
+        return f"https://{ist}.e-kreta.hu"
     IDP = "https://idp.e-kreta.hu"
     ADMIN = "https://eugyintezes.e-kreta.hu"
     FILES = "https://files.e-kreta.hu"
@@ -62,14 +58,13 @@ class KretaEndpoints:
     notes = "/ellenorzo/V3/Sajat/Feljegyzesek"
     events = "/ellenorzo/V3/Sajat/FaliujsagElemek"
     student = "/ellenorzo/V3/Sajat/TanuloAdatlap"
-    evaluations = "/ellenorzo/V3/Sajat/Ertekelesek"
+    grades = "/ellenorzo/V3/Sajat/Ertekelesek"
     absences = "/ellenorzo/V3/Sajat/Mulasztasok"
     groups = "/ellenorzo/V3/Sajat/OsztalyCsoportok"
-    classAverages = "/V3/Sajat/Ertekelesek/Atlagok/OsztalyAtlagok"
+    groupAverages = "/ellenorzo/V3/Sajat/Ertekelesek/Atlagok/OsztalyAtlagok"
     timetable = "/ellenorzo/V3/Sajat/OrarendElemek"
-    announcedTests = "/ellenorzo/V3/Sajat/BejelentettSzamonkeresek"
-    homeworks = "/ellenorzo/V3/Sajat/HaziFeladatok"
-    homeworkDone = "/ellenorzo/V3/Sajat/HaziFeladatok/Megoldva"
+    exams = "/ellenorzo/V3/Sajat/BejelentettSzamonkeresek"
+    homework = "/ellenorzo/V3/Sajat/HaziFeladatok"
     capabilities = "/ellenorzo/V3/Sajat/Intezmenyek"
 
 class AdminEndpoints:
@@ -100,10 +95,10 @@ Useful so that if the api links change you don't have to update your app.
 **Response from server:**
 ```json
 {
- "GlobalMobileApiUrlDEV": "https://kretaglobalmobileapiuat.ekreta.hu",
- "GlobalMobileApiUrlTEST": "https://kretaglobalmobileapitest.ekreta.hu",
- "GlobalMobileApiUrlUAT": "https://kretaglobalmobileapiuat.ekreta.hu",
- "GlobalMobileApiUrlPROD": "https://kretaglobalmobileapi2.ekreta.hu"
+  "GlobalMobileApiUrlDEV": "https://kretaglobalmobileapidev.ekreta.hu/",
+  "GlobalMobileApiUrlTEST": "https://kretaglobalmobileapitest.ekreta.hu",
+  "GlobalMobileApiUrlUAT": "https://kretaglobalmobileapiuat.ekreta.hu",
+  "GlobalMobileApiUrlPROD": "https://kretaglobalmobileapi2.ekreta.hu"
 }
 ```
 
@@ -113,7 +108,7 @@ Technically it is available from a [normal browser](http://kretamobile.blob.core
 May not work in languages with no lowercase header request, like Swift and Dart, see [BoA's note](https://github.com/boapps/e-kreta-api-docs#figyelem-ismert-probl%C3%A9m%C3%A1k-az-api-val).
 
 ```bash
-curl -H "apiKey: 7856d350-1fda-45f5-822d-e1a2f3f1acf0"  https://kretaglobalmobileapi2.ekreta.hu:443/api/v3/Institute
+curl "https://kretaglobalmobileapi2.ekreta.hu/api/v3/Institute" -H "apiKey: 7856d350-1fda-45f5-822d-e1a2f3f1acf0"
 ```
 
 **Response from server**
@@ -144,7 +139,7 @@ Returns a Bearer authenticator to be used later for most requests.
 **NOTE:** To simplify the `X-AuthorizationPolicy-Key` and `X-AuthorizationPolicy-Nonce` header information, please refer to the `kreta_v2.py` file.
 
 ```bash
-curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: hu.ekreta.student/1.0.5/Android/0/0" -H "X-AuthorizationPolicy-Key: xxx" -H "X-AuthorizationPolicy-Version: v2" -H "X-AuthorizationPolicy-Nonce: xxx" -d 'userName=xxxxxxxx&password=xxxxxxxxx&institute_code=xxxxxxxxx&grant_type=password&client_id=kreta-ellenorzo-mobile' https://idp.e-kreta.hu/connect/token
+curl "https://idp.e-kreta.hu/connect/token" -A "hu.ekreta.tanulo/1.0.5/Android/0/0" -H "X-AuthorizationPolicy-Key: xxx" -H "X-AuthorizationPolicy-Version: v2" -H "X-AuthorizationPolicy-Nonce: xxx" -d "userName=xxxxxxxx&password=xxxxxxxxx&institute_code=xxxxxxxxx&grant_type=password&client_id=kreta-ellenorzo-mobile-android"
 ```
 
 **Response from server:** 
@@ -160,14 +155,14 @@ curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent
 With `grant_type=refresh_token` you can then refresh your access token:
 
 ```bash
-curl -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: hu.ekreta.student/1.0.5/Android/0/0" -d "institute_code=xxxxxxxxx&refresh_token=xxxxxxxxxxxx&grant_type=refresh_token&client_id=kreta-ellenorzo-mobile" https://idp.e-kreta.hu/connect/token
+curl "https://idp.e-kreta.hu/connect/token" -A "hu.ekreta.tanulo/1.0.5/Android/0/0" -d "institute_code=xxxxxxxxx&refresh_token=xxxxxxxxxxxx&grant_type=refresh_token&client_id=kreta-ellenorzo-mobile-android"
 ```
 
 ## Messages
 ### Get all messages
 Requires the same headers as all GET requests, but also needs an endpoint that can be `beerkezett`, `elkuldott` or `torolt`.
 ```bash
-curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' https://eugyintezes.e-kreta.hu/api/v1/kommunkacio/postaladaelemek/$type
+curl "https://eugyintezes.e-kreta.hu/api/v1/kommunikacio/postaladaelemek/$type" -A "hu.ekreta.tanulo/1.0.5/Android/0/0" -H "Authorization: Bearer xxxxxxxx"
 ```
 
  **Response from server:**
@@ -191,7 +186,7 @@ curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5
 The above method is limited in message length (I think to 100 characters), so this gets more info about a specific messages denoted by it's numeric `id`.
 
 ```bash
-curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' https://eugyintezes.e-kreta.hu/api/v1/kommunkacio/postaladaelemek/$ID
+curl "https://eugyintezes.e-kreta.hu/api/v1/kommunkacio/postaladaelemek/$ID" -A "hu.ekreta.tanulo/1.0.5/Android/0/0" -H "Authorization: Bearer xxxxxxxx"
 ```
 
 ### Important notes:
@@ -269,7 +264,7 @@ curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5
 
 ## Get pre-announced tests & exams
 ```bash
-curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$ist"ekreta.hu.ellenorzo/V3/Sajat/BejelentettSzamonkeresek?datumTol=null"
+curl "https://"$ist".e-kreta.hu/ellenorzo/V3/Sajat/BejelentettSzamonkeresek?datumTol=null" -A "hu.ekreta.tanulo/1.0.5/Android/0/0" -H "Authorization: Bearer xxxxxxxx"
 ```
 
 ### Important notes: 
@@ -305,7 +300,7 @@ curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5
 Used to be together with absences & evaluations, but has it since been separated with v2.
 
 ```bash
-curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$institute".ekreta.hu/ellenorzo/V3/Sajat/Adatlap"
+curl "https://"$institute".e-kreta.hu/ellenorzo/V3/Sajat/TanuloAdatlap" -A "hu.ekreta.tanulo/1.0.5/Android/0/0" -H "Authorization: Bearer xxxxxxxx"
 ```
 
 ### Important notes:
@@ -372,7 +367,7 @@ curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5
 `datumTol` & `datumIg` is required for timetable, while optional for the other two.
 
 ```bash
-curl -H 'Authorization: Bearer xxxxxxxx' -H 'User-Agent: hu.ekreta.student/1.0.5/Android/0/0' "https://"$institute".ekreta.hu/ellenorzo/V3/Sajat/"$endpoint"?datumTol=2020-09-01T00-00-00&datumIg=2020-09-08T00-00-00"
+curl "https://"$institute".e-kreta.hu/ellenorzo/V3/Sajat/"$endpoint"?datumTol=2020-09-01T00-00-00&datumIg=2020-09-08T00-00-00" -A "hu.ekreta.tanulo/1.0.5/Android/0/0" -H "Authorization: Bearer xxxxxxxx"
 ```
 
 
